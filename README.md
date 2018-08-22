@@ -11,3 +11,11 @@ Since this is our first time using apt during this session, we can refresh the l
     sudo apt-get update
     sudo apt-get install ca-certificates curl openssh-server postfix
     
+Installing GitLab
+
+Now that the dependencies are in place, we can install GitLab itself. This is a straight forward process that leverages an installation script to configure your system with the GitLab repositories.
+
+Move into the /tmp directory and then download the installation script:
+
+    cd /tmp
+    curl -LO https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh
