@@ -31,5 +31,45 @@ Once you are satisfied with the safety of the script, run the installer:
 The script will set up your server to use the GitLab maintained repositories. This lets you manage GitLab with the same package management tools you use for your other system packages. Once this is complete, you can install the actual GitLab application with apt:
 
     sudo apt-get install gitlab-ce
+    
+    
+    Adjusting the Firewall Rules
+
+Before you configure GitLab, you will need to ensure that your firewall rules are permissive enough to allow web traffic. If you followed the guide linked in the prerequisites, you will have a ufw firewall enabled.
+
+View the current status of your active firewall by typing:
+
+    sudo ufw status
+
+Output
+Status: active
+
+To                         Action      From
+--                         ------      ----
+OpenSSH                    ALLOW       Anywhere                  
+OpenSSH (v6)               ALLOW       Anywhere (v6)
+
+As you can see, the current rules allow SSH traffic through, but access to other services is restricted. Since GitLab is a web application, we should allow HTTP access in. If you have a domain name associated with your GitLab server, GitLab can also request and enable a free TLS/SSL certificate from the Let's Encrypt project to secure your installation. We'll want to allow HTTPS access as well in this case.
+
+Since the protocol to port mapping for HTTP and HTTPS are available in the /etc/services file, we can allow that traffic in by name. If you didn't already have OpenSSH traffic enabled, you should allow that traffic now too:
+
+    sudo ufw allow http
+    sudo ufw allow https
+    sudo ufw allow OpenSSH
+If you check the ufw status command again, you should see access configured to at least these two services:
+
+    sudo ufw status
+Output
+Status: active
+
+To                         Action      From
+--                         ------      ----
+OpenSSH                    ALLOW       Anywhere                  
+80                         ALLOW       Anywhere                  
+443                        ALLOW       Anywhere                  
+OpenSSH (v6)               ALLOW       Anywhere (v6)             
+80 (v6)                    ALLOW       Anywhere (v6)             
+443 (v6)                   ALLOW       Anywhere (v6)
+
 
 This will install the necessary components on your system.
