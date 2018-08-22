@@ -19,3 +19,17 @@ Move into the /tmp directory and then download the installation script:
 
     cd /tmp
     curl -LO https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh
+    
+    Feel free to examine the downloaded script to ensure that you are comfortable with the actions that it will take. You can also find a hosted version of the script here:
+
+    less /tmp/script.deb.sh
+
+Once you are satisfied with the safety of the script, run the installer:
+
+    sudo bash /tmp/script.deb.sh
+
+The script will set up your server to use the GitLab maintained repositories. This lets you manage GitLab with the same package management tools you use for your other system packages. Once this is complete, you can install the actual GitLab application with apt:
+
+    sudo apt-get install gitlab-ce
+
+This will install the necessary components on your system.
